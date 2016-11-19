@@ -3,8 +3,6 @@ var app = express();
 
 app.use(express.static('./public'));
 
-app.get('/v1/fotos', function(req, res ){
-
-});
+require('../app/routes/foto')(app);
 
 module.exports = app;
