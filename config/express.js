@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+
 var consign = require('consign');
 var bodyParser = require('body-parser');
 
@@ -15,5 +16,7 @@ consign({ cwd: 'app' })
 	.then('routes/auth.js')
 	.then('routes')
 	.into(app);
+
+app.use(express.static('./public'));
 
 module.exports = app;

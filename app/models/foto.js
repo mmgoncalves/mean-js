@@ -16,4 +16,5 @@ var schema = mongoose.Schema({
 	}
 });
 
+
 mongoose.model('Foto', schema);

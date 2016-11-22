@@ -9,10 +9,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "body-parser": "^1.14.1",
     "consign": "^0.1.2",
     "express": "^4.13.3",
     "jsonwebtoken": "^5.4.1",
     "mongoose": "^4.3.1"
+=======
+    "express": "^4.13.3"
+>>>>>>> b2c5be896fa0a33daedd83b1ad69f9870b74d617
   }
 }
