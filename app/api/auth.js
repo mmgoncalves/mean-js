@@ -7,17 +7,22 @@ module.exports = function(app) {
 	var model = mongoose.model('Usuario');
 
 	api.autentica = function(req, res) {
+
 		model
 			.findOne({login: req.body.login, senha: req.body.senha})
 			.then(function(usuario) {
 				if(!usuario) {
 					console.log('Login e senha invalidos');
 					res.sendStatus(401);
-				}
+				} else {
+					var token = jwt.sign(usuario.login, app.get(secret), {
+						expiresIn: 84600
+					});	
 
-				var token = jwt.sign(usuario.login, app.get(secret), {
-					expiresIn: 84600+
-				});
+					console.log('Token enviado no header de resposta.');
+					res.set('x-access-token', token);
+					res.end();
+				}
 
 			}, function(error) {
 				console.log('Login e senha invalidos');
@@ -25,7 +30,26 @@ module.exports = function(app) {
 			});
 	};
 
-	api.verificaToken = function(req, res) {
+	api.verificaToken = function(req, res, next) {
+		var token = req.headers['x-access-token'];
 
+		if(token) {
+			console.log('Verificando token');
+
+			jwt.verify(token, app.get('secret'), function(err, decoded) {
+				if(err) {
+					console.log('Token rejeitado');
+					res.sendStatus(401);
+				}
+
+				req.usuario = decoded;
+				next();
+			});	
+		} else {
+			console.log('Token nao foi enviado');
+			res.sendStatus(404);
+		}
 	};
+
+	return api;
 };

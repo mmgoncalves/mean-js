@@ -3,9 +3,6 @@
 .DS_Store?
 node_modules/
 .dpl/
-<<<<<<< HEAD
 .idea
 db/
-=======
-.idea
->>>>>>> b2c5be896fa0a33daedd83b1ad69f9870b74d617
+npm-debug.log
